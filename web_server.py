@@ -11,10 +11,25 @@ from core.constants import FACE_NAMES, DEFAULT_FACE_COLOR
 from visualization.renderer import render_cube_flat
 
 app = Flask(__name__)
-CORS(app, origins="*")  # Enable CORS for all origins (including extensions)
+# Enable CORS for all origins, including chrome extensions
+CORS(app, origins="*", methods=["GET", "POST", "OPTIONS"], 
+     allow_headers=["Content-Type", "Authorization"])
 
 # Constants
 MAX_BFS_DEPTH = 8  # Same as in run_cross_solver.py
+
+@app.route('/', methods=['GET'])
+def home():
+    """Health check endpoint"""
+    return jsonify({
+        "status": "online",
+        "message": "Rubik's Cube Cross Solver API is running!",
+        "version": "1.0.0",
+        "endpoints": {
+            "solve": "/solve?scramble=<scramble_moves>",
+            "example": "/solve?scramble=R U R' U'"
+        }
+    })
 
 @app.route('/solve', methods=['GET'])
 def solve_cross():
@@ -148,14 +163,21 @@ def solve_cross():
 if __name__ == '__main__':
     print("Starting Flask server for Rubik's Cube Cross Solver...")
     print("Available endpoints:")
+    print("  GET / - Health check")
     print("  GET /solve?scramble=<scramble_moves>")
-    print("  Example: http://localhost:5000/solve?scramble=U%27%20B2%20F2%20R2%20U2%20L%27%20R2%20D2%20L%27%20B2%20D2%20U%20L2%20F%20L%27%20R%27%20B%27%20U%20R2")
+    print("  Example: /solve?scramble=R%20U%20R%27%20U%27")
     
     # Production deployment configuration
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV', 'development') != 'production'
     
-    print(f"\nServer starting on http://{'localhost' if debug else '0.0.0.0'}:{port}")
+    print(f"\nServer starting on port {port}")
     print(f"Debug mode: {'ON' if debug else 'OFF'}")
+    print(f"Environment: {os.environ.get('FLASK_ENV', 'development')}")
     
-    app.run(debug=debug, host='0.0.0.0', port=port)
+    # Use gunicorn in production, flask dev server locally
+    if os.environ.get('FLASK_ENV') == 'production':
+        # This will be handled by gunicorn in production
+        app.run(debug=False, host='0.0.0.0', port=port)
+    else:
+        app.run(debug=debug, host='0.0.0.0', port=port)

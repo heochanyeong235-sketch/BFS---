@@ -291,7 +291,7 @@ function findScramble() {
 async function getSolution(scramble) {
     try {
         const encodedScramble = encodeURIComponent(scramble);
-        const response = await fetch(`http://localhost:5000/solve?scramble=${encodedScramble}`);
+        const response = await fetch(`https://cube-cross-solver.onrender.com/solve?scramble=${encodedScramble}`);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
