@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Rubik's Cube Cross Solver",
+  "version": "1.0",
+  "description": "cstimer에서 스크램블을 가져와서 크로스 솔루션을 찾는 확장프로그램",
+  
+  "permissions": [
+    "activeTab"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["*://*.cstimer.net/*", "*://cstimer.net/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cross Solver"
+  }
+}

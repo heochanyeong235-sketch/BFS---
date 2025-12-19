@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 300px;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f1b5b5;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">🧩 Cross Solver</div>
+    <div class="description">
+        cstimer.net에서 스크램블을 자동으로 찾아서 크로스 솔루션을 제공합니다.
+    </div>
+    
+    <div id="server-status" class="status">
+        서버 상태 확인 중...
+    </div>
+    
+    <div style="font-size: 12px; color: #888;">
+        사용법:<br>
+        1. cstimer.net 방문<br>
+        2. 좌측 상단의 "🧩 Find Cross Solution" 버튼 클릭<br>
+        3. 솔루션 확인 및 복사
+    </div>
+
+    <script>
+        // 서버 상태 확인
+        fetch('http://localhost:5000/solve?scramble=U R F')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('server-status').className = 'status success';
+                document.getElementById('server-status').textContent = '✅ 서버 연결됨';
+            })
+            .catch(error => {
+                document.getElementById('server-status').className = 'status error';
+                document.getElementById('server-status').textContent = '❌ 서버 연결 실패 - web_server.py를 실행하세요';
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+#cross-solution-display {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#cross-solve-button:hover {
+    background: #45a049 !important;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+#cross-solution-display button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
