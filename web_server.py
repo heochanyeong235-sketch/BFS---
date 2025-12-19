@@ -175,9 +175,9 @@ if __name__ == '__main__':
     print(f"Debug mode: {'ON' if debug else 'OFF'}")
     print(f"Environment: {os.environ.get('FLASK_ENV', 'development')}")
     
-    # Use gunicorn in production, flask dev server locally
-    if os.environ.get('FLASK_ENV') == 'production':
-        # This will be handled by gunicorn in production
-        app.run(debug=False, host='0.0.0.0', port=port)
-    else:
-        app.run(debug=debug, host='0.0.0.0', port=port)
+    try:
+        app.run(debug=debug, host='0.0.0.0', port=port, threaded=True)
+    except Exception as e:
+        print(f"Error starting server: {e}")
+        import traceback
+        traceback.print_exc()
