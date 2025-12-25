@@ -71,11 +71,11 @@ python examples/run_visualizer.py
 ### csTimer Integration
 For **csTimer.net** users, install the Tampermonkey script:
 
-1. Install [Tampermonkey browser extension](https://www.tampermonkey.net/)
-2. Create new script with content from `chrome_extension/content.js`
-3. Configure to run on `cstimer.net`
-4. Start the web server (`python web_server.py`)
-5. Solve scrambles - cross solutions appear automatically!
+1. Download Chrome extension folder
+2. Open `chrome://extentions/`
+3. Load the downloaded the folder 
+4. Go to Cstimer
+5. Cick the button Solve scrambles - cross solutions appear automatically!
 
 ## 🏗️ Project Structure
 
